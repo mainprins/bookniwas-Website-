@@ -37,7 +37,7 @@ export const register = async (req, res) => {
             profilePic,
         });
 
-        const token = await generateToken(newUser.email, newUser.fullname, newUser._id, newUser.role);
+        const token = await generateToken(newUser.email, newUser.fullname, newUser._id, newUser.role,newUser.profilePic);
 
         await newUser.save();
 
@@ -76,7 +76,7 @@ export const login = async (req, res) => {
             profilePic: user.profilePic,
         };
 
-        const token = await generateToken(user.email, user.fullname, user._id, user.role);
+        const token = await generateToken(user.email, user.fullname, user._id, user.role,user.profilePic);
 
         res.cookie('token', token, getCookieOptions());
 

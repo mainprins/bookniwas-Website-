@@ -44,13 +44,13 @@ const BookDetailsPage = () => {
     if (isLoading) return <span>Loading ....</span>
 
     return (
-        <div className='w-full h-full flex flex-row justify-center items-center'>
+        <div className='w-full h-full flex flex-col md:flex-row justify-center items-center'>
             <div id="left" className='w-1/2 h-full flex items-center justify-center'>
                 <figure className='bg-darker w-[80%] h-[80%] rounded-xl'>
                     <img src={`https://bookniwas-website-backend.onrender.com/uploads/${book.bookImg}`} alt="" className='w-full rounded-t-xl h-full object-cover' />
                 </figure>
             </div>
-            <div id="right" className='w-1/2 h-full flex flex-col gap-6 justify-center px-40'>
+            <div id="right" className='w-full md:w-1/2 h-full flex flex-col gap-6 justify-center px-30 md:px-40'>
                 <span className='text-xl text-lightest font-bold tracking-wider'>{book.title}</span>
                 <p className='text-lightest'>The book is very good</p>
                 <span className='text-lighter'>Quantity : {book.quantity}</span>

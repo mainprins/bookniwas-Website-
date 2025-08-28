@@ -82,7 +82,7 @@ const DashboardPage = () => {
       </div>
 
       {authUser.role === "librarian" && (
-        <div className='bg-darker justify-center items-center flex p-6 rounded-xl'>
+        <div className='bg-darker justify-center text-xs md:text-md items-center flex p-6 rounded-xl'>
           <LineChart width={600} height={300} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
             <CartesianGrid stroke="#ECDFCC" strokeDasharray="5 5" />
             <XAxis dataKey="name" color='#ECDFCC' />

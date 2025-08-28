@@ -20,7 +20,7 @@ const NavBar = () => {
 
                 </div>
             </div>
-              <div className={` ${isOpen ? "fixed" : "hidden"} fixed top-0 left-0 w-[100vw] h-[90vh] flex justify-center items-center font-bold tracking-wider flex-col gap-20 bg-darkest text-lightest`}>
+              <div className={` ${isOpen ? "fixed" : "hidden"} fixed top-0 left-0 w-[100vw] h-[90vh] flex justify-center items-center font-bold tracking-wider flex-col gap-20 bg-darkest text-lightest z-50`}>
                 <Link to={'/home/dashboard'}><span className='hover:text-lighter text-3xl' onClick={()=>{setIsOpen(false)}}>Dashboard</span></Link>
                 <Link to={'/home/books'}><span className='hover:text-lighter text-3xl' onClick={()=>{setIsOpen(false)}}>All Books</span></Link>
                 <Link to={'/home/allBorrows'}><span className='hover:text-lighter text-3xl' onClick={()=>{setIsOpen(false)}}>All Borrows</span></Link>

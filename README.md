@@ -65,37 +65,6 @@ BookNiwas is a full-stack library management system that allows users to manage 
 
 ---
 
-## API Endpoints
-
-### Auth
-
-| Method | Endpoint           | Description                   |
-|--------|------------------|-------------------------------|
-| POST   | `/api/auth/register` | Register a new user            |
-| POST   | `/api/auth/login`    | Login user                     |
-| POST   | `/api/auth/logout`   | Logout user                    |
-| GET    | `/api/users/borrowers` | Get all borrowers            |
-
-### Books
-
-| Method | Endpoint           | Description                   |
-|--------|------------------|-------------------------------|
-| GET    | `/api/books`       | Get all books                 |
-| POST   | `/api/books`       | Add a new book                |
-| PUT    | `/api/books/:id`   | Update book details           |
-| DELETE | `/api/books/:id`   | Delete a book                 |
-
-### Borrows
-
-| Method | Endpoint             | Description                   |
-|--------|--------------------|-------------------------------|
-| GET    | `/api/borrows`       | Get all borrow records        |
-| POST   | `/api/borrows`       | Create a new borrow record    |
-| PUT    | `/api/borrows/:id`   | Update a borrow record        |
-| DELETE | `/api/borrows/:id`   | Delete a borrow record        |
-
----
-
 ## Installation
 
 ### Backend

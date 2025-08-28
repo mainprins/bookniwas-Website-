@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  --color-darkest: #181C14;
+  --color-darker: #3C3D37;
+  --color-lighter: #697565;
+  --color-lightest: #ECDFCC;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+*{
+  font-family: "Nunito", sans-serif;
+}
+
+body{
+  background-color: #181C14;
+}d
+
+html {
+  scroll-behavior: smooth;
+}

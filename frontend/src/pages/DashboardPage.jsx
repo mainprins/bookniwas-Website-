@@ -10,6 +10,7 @@ const DashboardPage = () => {
   const { authUser } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
   const [recentBorrowsArray, setRecentBorrowsArray] = useState([]);
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
   const { allBooks, allBorrows, fullBorrows, availableBooks, allBorrowers } = useOutletContext();
 
@@ -33,6 +34,14 @@ const DashboardPage = () => {
     setIsLoading(false);
   }, [authUser, fullBorrows]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentDateTime(new Date());
+    },1000);
+    return () => clearInterval(interval);
+  }, []);
+
+
   if (isLoading) return <div>Loading ...</div>
 
   return (
@@ -40,7 +49,15 @@ const DashboardPage = () => {
       <div className='w-full'>
         <div className='flex flex-col gap-3'>
           <span className='text-2xl font-bold tracking-wider'>Hello, <span className='text-lightest'>{authUser.fullname}</span></span>
-          <span>Jan 12, 2023 | Thursday, 11:00 PM</span>
+          <span>{currentDateTime.toLocaleDateString('en-US', {
+            weekday: 'short',
+            month: 'short',
+            year: 'numeric'
+          })} | {currentDateTime.toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true
+          })}</span>
         </div>
         <div></div>
       </div>
@@ -81,18 +98,20 @@ const DashboardPage = () => {
         </div>
       </div>
 
-      {authUser.role === "librarian" && (
-        <div className='bg-darker justify-center text-xs md:text-md items-center flex p-6 rounded-xl'>
-          <LineChart width={600} height={300} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-            <CartesianGrid stroke="#ECDFCC" strokeDasharray="5 5" />
-            <XAxis dataKey="name" color='#ECDFCC' />
-            <YAxis />
-            <Legend align="center" />
-            <Tooltip />
-            <Line type="monotone" dataKey="borrowed" stroke="#ECDFCC" strokeWidth={2} name="Borrowed Books" />
-          </LineChart>
-        </div>
-      )}
+      {
+        authUser.role === "librarian" && (
+          <div className='bg-darker justify-center text-xs md:text-md items-center flex p-6 rounded-xl'>
+            <LineChart width={600} height={300} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+              <CartesianGrid stroke="#ECDFCC" strokeDasharray="5 5" />
+              <XAxis dataKey="name" color='#ECDFCC' />
+              <YAxis />
+              <Legend align="center" />
+              <Tooltip />
+              <Line type="monotone" dataKey="borrowed" stroke="#ECDFCC" strokeWidth={2} name="Borrowed Books" />
+            </LineChart>
+          </div>
+        )
+      }
 
       <div className='w-[100%] flex flex-col gap-6'>
         <span className='text-lightest text-2xl font-bold tracking-wider'>{authUser.role === 'librarian' ? "Recent Borrows" : "Recommended Books"}</span>
@@ -103,7 +122,7 @@ const DashboardPage = () => {
               recentBorrowsArray.map((borrow, index) => (
                 <div className='bg-darkest flex flex-col min-h-100 w-80 rounded-xl' key={index}>
                   <figure className='w-full h-1/2 bg-lighter rounded-tl-xl rounded-tr-xl'>
-                   <img src={`https://bookniwas-website-backend.onrender.com/uploads/${borrow.bookId.bookImg}`} alt="" className='w-full rounded-t-xl h-full object-cover' /></figure>
+                    <img src={`https://bookniwas-website-backend.onrender.com/uploads/${borrow.bookId.bookImg}`} alt="" className='w-full rounded-t-xl h-full object-cover' /></figure>
                   <div className='pl-3 pt-3 flex flex-col gap-2'>
                     <span className='text-xl text-lightest font-bold tracking-wider'>{borrow.bookId.title}</span>
                     <span>Borrower : {borrow.userId.fullname}</span>
@@ -116,7 +135,7 @@ const DashboardPage = () => {
             : "No recommends"}
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 

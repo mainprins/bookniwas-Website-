@@ -28,7 +28,7 @@ const BookDetailsPage = () => {
     const handleDeletion = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.delete(`http://localhost:3000/api/books/delete/${book._id}`, { withCredentials: true });
+            const res = await axios.delete(`https://bookniwas-website-backend.onrender.com/api/books/delete/${book._id}`, { withCredentials: true });
             toast.success(res.data.message);
             fetchBooks();
             navigate('/home/books')
@@ -47,7 +47,7 @@ const BookDetailsPage = () => {
         <div className='w-full h-full flex flex-row justify-center items-center'>
             <div id="left" className='w-1/2 h-full flex items-center justify-center'>
                 <figure className='bg-darker w-[80%] h-[80%] rounded-xl'>
-                    <img src={`http://localhost:3000/uploads/${book.bookImg}`} alt="" className='w-full rounded-t-xl h-full object-cover' />
+                    <img src={`https://bookniwas-website-backend.onrender.com/uploads/${book.bookImg}`} alt="" className='w-full rounded-t-xl h-full object-cover' />
                 </figure>
             </div>
             <div id="right" className='w-1/2 h-full flex flex-col gap-6 justify-center px-40'>

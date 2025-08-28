@@ -48,7 +48,7 @@ const BooksPage = () => {
             data.append('bookPic', bookPic);
 
             const res = await axios.post(
-                "http://localhost:3000/api/books/add",
+                "https://bookniwas-website-backend.onrender.com/api/books/add",
                 data,
                 {
                     withCredentials: true,
@@ -72,7 +72,7 @@ const BooksPage = () => {
     const handleBorrow = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:3000/api/books/borrow", borrowData, { withCredentials: true });
+            const res = await axios.post("https://bookniwas-website-backend.onrender.com/api/books/borrow", borrowData, { withCredentials: true });
             toast.success(res.data.message);
             fetchBorrows();
             fetchAllBorrows();
@@ -193,7 +193,7 @@ const BooksPage = () => {
                     {isSearched ? filteredBooks.length != 0 ? filteredBooks.map((book, index) => (
                         <div className='bg-darkest flex flex-col min-h-100 w-80 rounded-xl' key={index}>
                             <figure className='w-full h-1/2 bg-lighter rounded-tl-xl rounded-tr-xl'>
-                                <img src={`http://localhost:3000/uploads/${book.bookImg}`} alt="" className='w-full rounded-t-xl h-full object-cover' /></figure>
+                                <img src={`https://bookniwas-website-backend.onrender.com/uploads/${book.bookImg}`} alt="" className='w-full rounded-t-xl h-full object-cover' /></figure>
                             <div className='pl-3 pt-3 flex flex-col gap-2'>
                                 <span className='text-xl text-lightest font-bold tracking-wider'>{book.title}</span>
                                 <span className='text-lighter'>Quantity : {book.quantity}</span>
@@ -214,7 +214,7 @@ const BooksPage = () => {
                         authUser.role === 'librarian' ? allBooks.map((book, index) => (
                             <div className='bg-darkest flex flex-col min-h-120 w-80 rounded-xl' key={index}>
                                 <figure className='w-full h-1/2 bg-lighter rounded-tl-xl rounded-tr-xl'>
-                                    <img src={`http://localhost:3000/uploads/${book.bookImg}`} alt="" className='w-full rounded-t-xl h-full object-cover' /></figure>
+                                    <img src={`https://bookniwas-website-backend.onrender.com/uploads/${book.bookImg}`} alt="" className='w-full rounded-t-xl h-full object-cover' /></figure>
                                 <div className='pl-3 pt-3 flex flex-col gap-2'>
                                     <span className='text-xl text-lightest font-bold tracking-wider'>{book.title}</span>
                                     <span className='text-lighter'>Quantity : {book.quantity}</span>
@@ -229,7 +229,7 @@ const BooksPage = () => {
                         )) : availableBooks.map((book, index) => (
                             <div className='bg-darkest flex flex-col min-h-120 w-80 rounded-xl' key={index}>
                                 <figure className='w-full h-1/2 bg-lighter rounded-tl-xl rounded-tr-xl'>
-                                    <img src={`http://localhost:3000/uploads/${book.bookImg}`} alt="" className='w-full rounded-t-xl h-full object-cover' /></figure>
+                                    <img src={`https://bookniwas-website-backend.onrender.com/uploads/${book.bookImg}`} alt="" className='w-full rounded-t-xl h-full object-cover' /></figure>
                                 <div className='pl-3 pt-3 flex flex-col gap-2'>
                                     <span className='text-xl text-lightest font-bold tracking-wider'>{book.title}</span>
                                     <span className='text-lighter'>Quantity : {book.quantity}</span>

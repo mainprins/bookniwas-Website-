@@ -28,7 +28,7 @@ const RegisterPage = () => {
       data.append('profilePic', profilePic)
 
       const res = await axios.post(
-        'http://localhost:3000/api/auth/register',
+        'https://bookniwas-website-backend.onrender.com/api/auth/register',
         data,
         {
           withCredentials: true,

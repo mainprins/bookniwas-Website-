@@ -18,7 +18,7 @@ const HomePage = () => {
   const fetchBooks = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.get("http://localhost:3000/api/books/books", { withCredentials: true });
+      const res = await axios.get("https://bookniwas-website-backend.onrender.com/api/books/books", { withCredentials: true });
       setAllBooks(res.data.allBooks);
       console.log(res.data.message);
     } catch (error) {
@@ -31,7 +31,7 @@ const HomePage = () => {
   const fetchBorrows = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.get("http://localhost:3000/api/books/getBorrows", {
+      const res = await axios.get("https://bookniwas-website-backend.onrender.com/api/books/getBorrows", {
         params: { userId: authUser.id },
         withCredentials: true
       });
@@ -50,7 +50,7 @@ const HomePage = () => {
   const fetchAllBorrows = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.get("http://localhost:3000/api/books/getAllBorrows", {
+      const res = await axios.get("https://bookniwas-website-backend.onrender.com/api/books/getAllBorrows", {
         withCredentials: true
       });
       setFullBorrows(res.data.fullBorrows);
@@ -67,7 +67,7 @@ const HomePage = () => {
   const fetchBorrowers = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.get("http://localhost:3000/api/auth/allBorrowers", {
+      const res = await axios.get("https://bookniwas-website-backend.onrender.com/api/auth/allBorrowers", {
         withCredentials: true
       });
       setAllBorrowers(res.data.allBorrowers);
@@ -83,7 +83,7 @@ const HomePage = () => {
   const fetchAvailableBooks = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.get("http://localhost:3000/api/books/availableBooks", { withCredentials: true });
+      const res = await axios.get("https://bookniwas-website-backend.onrender.com/api/books/availableBooks", { withCredentials: true });
       setAvailableBooks(res.data.availableBooks);
       console.log(res.data.message);
     } catch (error) {

@@ -19,7 +19,7 @@ const LeftBar = () => {
 
    const handleLogout = async (e) => {
       try {
-         const res = await axios.post("http://localhost:3000/api/auth/logout", {}, { withCredentials: true });
+         const res = await axios.post("https://bookniwas-website-backend.onrender.com/api/auth/logout", {}, { withCredentials: true });
          localStorage.removeItem('auth');
          setAuthUser(null);
          setIsAuthenticated(false);
@@ -42,7 +42,7 @@ const LeftBar = () => {
             <figure className="w-[50px] h-[50px] rounded-full overflow-hidden bg-gray-600">
                {authUser?.profilePic ? (
                   <img
-                     src={`http://localhost:3000/uploads/${authUser.profilePic}`}
+                     src={`https://bookniwas-website-backend.onrender.com/uploads/${authUser.profilePic}`}
                      alt="Profile"
                      className="w-full h-full object-cover"
                   />

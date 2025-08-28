@@ -103,7 +103,7 @@ const DashboardPage = () => {
               recentBorrowsArray.map((borrow, index) => (
                 <div className='bg-darkest flex flex-col min-h-100 w-80 rounded-xl' key={index}>
                   <figure className='w-full h-1/2 bg-lighter rounded-tl-xl rounded-tr-xl'>
-                   <img src={`http://localhost:3000/uploads/${borrow.bookId.bookImg}`} alt="" className='w-full rounded-t-xl h-full object-cover' /></figure>
+                   <img src={`https://bookniwas-website-backend.onrender.com/uploads/${borrow.bookId.bookImg}`} alt="" className='w-full rounded-t-xl h-full object-cover' /></figure>
                   <div className='pl-3 pt-3 flex flex-col gap-2'>
                     <span className='text-xl text-lightest font-bold tracking-wider'>{borrow.bookId.title}</span>
                     <span>Borrower : {borrow.userId.fullname}</span>

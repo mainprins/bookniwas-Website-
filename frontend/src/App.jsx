@@ -26,7 +26,7 @@ function App() {
       
       setIsLoading(true);
       try {
-        const res = await axios.get("http://localhost:3000/api/check", {
+        const res = await axios.get("https://bookniwas-website-backend.onrender.com/api/check", {
           withCredentials: true
         });
         localStorage.setItem('auth', 'true');

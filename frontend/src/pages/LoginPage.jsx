@@ -16,7 +16,7 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault()
     try {
-      const res = await axios.post("http://localhost:3000/api/auth/login", formData, { withCredentials: true });
+      const res = await axios.post("https://bookniwas-website-backend.onrender.com/api/auth/login", formData, { withCredentials: true });
       localStorage.setItem('auth', 'true');
       setAuthUser(res.data.authUser);
       toast.success(res.data.message);

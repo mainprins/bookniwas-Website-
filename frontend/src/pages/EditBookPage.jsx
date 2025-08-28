@@ -27,7 +27,7 @@ const EditBookPage = () => {
             setFormData(({available:'true'}));
         }
         try {
-            const res = await axios.put(`http://localhost:3000/api/books/update/${book._id}`,formData,{withCredentials:true});
+            const res = await axios.put(`https://bookniwas-website-backend.onrender.com/api/books/update/${book._id}`,formData,{withCredentials:true});
             toast.success(res.data.message);
             fetchBooks();
             navigate('/home/books')

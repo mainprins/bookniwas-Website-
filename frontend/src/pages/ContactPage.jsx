@@ -16,12 +16,11 @@ const ContactPage = () => {
         setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setIsSubmitting(true);
         setFeedback('');
         try {
-            await axios.post('http://localhost:3000/api/contact', formData);
             setFeedback('Message sent successfully!');
             setFormData({ name: '', email: '', message: '' });
         } catch (error) {

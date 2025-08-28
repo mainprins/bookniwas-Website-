@@ -15,7 +15,7 @@ const BorrowsPage = () => {
   const returnBook = async (id)=>{
         
         try {
-          const res = await axios.delete("http://localhost:3000/api/books/return",{
+          const res = await axios.delete("https://bookniwas-website-backend.onrender.com/api/books/return",{
             params:{
               borrowId:id
             },
@@ -57,7 +57,7 @@ const BorrowsPage = () => {
         {authUser.role === 'librarian' ? fullBorrows.map((borrow, index) => (
           <div className='bg-darkest flex flex-col min-h-100 w-80 rounded-xl' key={index}>
             <figure className='w-full h-1/2 bg-lighter rounded-tl-xl rounded-tr-xl'>
-              <img src={`http://localhost:3000/uploads/${borrow.bookId.bookImg}`} alt="" className='w-full rounded-t-xl h-full object-cover' />
+              <img src={`https://bookniwas-website-backend.onrender.com/uploads/${borrow.bookId.bookImg}`} alt="" className='w-full rounded-t-xl h-full object-cover' />
 
             </figure>
             <div className='pl-3 pt-3 flex flex-col gap-2 text-lighter'>
@@ -70,7 +70,7 @@ const BorrowsPage = () => {
         )) : allBorrows.map((borrow, index) => (
           <div className='bg-darkest flex flex-col min-h-100 w-80 rounded-xl' key={index}>
             <figure className='w-full h-1/2 bg-lighter rounded-tl-xl rounded-tr-xl'>
-              <img src={`http://localhost:3000/uploads/${borrow.bookId.bookImg}`} alt="" className='w-full rounded-t-xl h-full object-cover' />
+              <img src={`https://bookniwas-website-backend.onrender.com/uploads/${borrow.bookId.bookImg}`} alt="" className='w-full rounded-t-xl h-full object-cover' />
             </figure>
             <div className='pl-3 pt-3 flex flex-col gap-2 text-lighter'>
               <span className='text-xl text-lightest font-bold tracking-wider'>{borrow.bookId.title}</span>

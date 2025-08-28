@@ -102,5 +102,5 @@ BookNiwas is a full-stack library management system that allows users to manage 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/<your-username>/bookniwas.git
+   git clone https://github.com/mainprins/bookniwas-Website-.git
    cd bookniwas/backend

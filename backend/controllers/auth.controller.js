@@ -1,6 +1,16 @@
 import userModel from "../models/user.model.js";
-import bcrypt from "bcryptjs"
+import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateToken.js";
+
+const getCookieOptions = () => {
+    const isProduction = process.env.NODE_ENV === 'production';
+    return {
+        httpOnly: true,
+        secure: isProduction,
+        maxAge: 7 * 60 * 60 * 1000,
+        sameSite: isProduction ? 'none' : 'lax',
+    };
+};
 
 export const register = async (req, res) => {
     try {
@@ -8,11 +18,10 @@ export const register = async (req, res) => {
         const profilePic = req.file?.filename || null;
 
         if (!fullname || !email || !password || !role) {
-            return res.status(400).json({ message: "Required fields cannot be empty." })
+            return res.status(400).json({ message: "Required fields cannot be empty." });
         }
 
-        const existingUser = await userModel.findOne({ email: email });
-
+        const existingUser = await userModel.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: "Sorry, the user already exists." });
         }
@@ -21,33 +30,26 @@ export const register = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, salt);
 
         const newUser = new userModel({
-            fullname: fullname,
-            email: email,
+            fullname,
+            email,
             password: hashedPassword,
-            role: role,
-            profilePic:profilePic,
+            role,
+            profilePic,
         });
 
-        const token = await generateToken(newUser.email,newUser.fullname, newUser._id, newUser.role);
+        const token = await generateToken(newUser.email, newUser.fullname, newUser._id, newUser.role);
 
         await newUser.save();
 
-        res.cookie('token', token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            maxAge: 7 * 60 * 60 * 1000,
-            sameSite: 'lax'
-        });
+        res.cookie('token', token, getCookieOptions());
 
-        return res.status(201).json({ message: "New user registered successfully.",authUser:newUser })
-
+        return res.status(201).json({ message: "New user registered successfully.", authUser: newUser });
 
     } catch (error) {
-        console.log("Error in register controller : ", error);
-        res.status(404).json({ message: "Internal Server Error." });
-
+        console.log("Error in register controller:", error);
+        res.status(500).json({ message: "Internal Server Error." });
     }
-}
+};
 
 export const login = async (req, res) => {
     try {
@@ -56,66 +58,52 @@ export const login = async (req, res) => {
             return res.status(400).json({ message: "Required fields cannot be empty." });
         }
 
-        const user = await userModel.findOne({ email: email });
+        const user = await userModel.findOne({ email });
         if (!user) {
-            return res.status(401).json({ message: "Either your email or password is incorrect" });
+            return res.status(401).json({ message: "Either your email or password is incorrect." });
         }
 
         const isPasswordMatch = await bcrypt.compare(password, user.password);
-
         if (!isPasswordMatch) {
-            return res.status(401).json({ message: "Either your email or password is incorrect" });
+            return res.status(401).json({ message: "Either your email or password is incorrect." });
         }
 
         const loggedInUser = {
             fullname: user.fullname,
             email: user.email,
-            id: user.id,
+            id: user._id,
             role: user.role,
             profilePic: user.profilePic,
-        }
+        };
 
-        const token = await generateToken(user.email,user.fullname, user._id, user.role);
+        const token = await generateToken(user.email, user.fullname, user._id, user.role);
 
-        res.cookie('token', token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            maxAge: 7 * 60 * 60 * 1000,
-            sameSite: 'lax'
-        })
+        res.cookie('token', token, getCookieOptions());
 
-        res.status(200).json({ message: "Logged in Successfully." ,authUser:loggedInUser});
-
-
+        res.status(200).json({ message: "Logged in Successfully.", authUser: loggedInUser });
 
     } catch (error) {
-        console.log("Error in login controller : ", error);
-        res.status(404).json({ message: "Internal Server Error." });
+        console.log("Error in login controller:", error);
+        res.status(500).json({ message: "Internal Server Error." });
     }
-}
+};
 
 export const logout = (req, res) => {
     try {
-        res.clearCookie('token', {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'lax'
-        });
+        res.clearCookie('token', getCookieOptions());
         res.status(200).json({ message: 'Logged out successfully.' });
     } catch (error) {
-        console.log("Error in logout controller : ", error);
-        res.status(404).json({ message: "Internal Server Error." });
+        console.log("Error in logout controller:", error);
+        res.status(500).json({ message: "Internal Server Error." });
     }
-}
+};
 
-export const getAllBorrowers = async (req,res) => {
+export const getAllBorrowers = async (req, res) => {
     try {
-        const allBorrowers = await userModel.find({role:'borrower'});
-        
-        res.status(200).json({message:"All borrowers fetched successfully.",allBorrowers:allBorrowers});
+        const allBorrowers = await userModel.find({ role: 'borrower' });
+        res.status(200).json({ message: "All borrowers fetched successfully.", allBorrowers });
     } catch (error) {
-        console.log("Error in getAllBorrowers controller : ", error);
-        res.status(404).json({ message: "Internal Server Error." });
+        console.log("Error in getAllBorrowers controller:", error);
+        res.status(500).json({ message: "Internal Server Error." });
     }
-}
-
+};

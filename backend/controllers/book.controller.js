@@ -29,12 +29,21 @@ export const deleteBook = async (req, res) => {
 
     const book = await bookModel.deleteOne({ _id: bookId });
 
-    res.status(200).json({ message: "A book got deleted successfully.", deletedBook: book });
+    if (book.deletedCount === 0) {
+      return res.status(404).json({ message: "Book not found." });
+    }
+
+    await borrowModel.deleteMany({ bookId: bookId });
+
+    res.status(200).json({ 
+      message: "Book and all its borrows deleted successfully." 
+    });
   } catch (error) {
     console.log("Error in deleteBook controller : ", error);
-    res.status(404).json({ message: "Internal Server Error." });
+    res.status(500).json({ message: "Internal Server Error." });
   }
-}
+};
+
 
 export const updateBook = async (req, res) => {
   try {

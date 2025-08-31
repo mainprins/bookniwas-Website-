@@ -12,7 +12,7 @@ const BookDetailsPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [book, setBook] = useState(null);
 
-    const { allBooks, availableBooks, fetchBooks } = useOutletContext();
+    const { allBooks, availableBooks, fetchBooks,fetchBorrows,fetchAllBorrows } = useOutletContext();
     const { authUser } = useContext(AuthContext);
 
     useEffect(() => {
@@ -31,6 +31,9 @@ const BookDetailsPage = () => {
             const res = await axios.delete(`https://bookniwas-website-backend.onrender.com/api/books/delete/${book._id}`, { withCredentials: true });
             toast.success(res.data.message);
             fetchBooks();
+            fetchBorrows();
+            fetchAllBorrows();
+            
             navigate('/home/books')
         } catch (error) {
             console.log("Error while updating book :", error.response?.data?.message);

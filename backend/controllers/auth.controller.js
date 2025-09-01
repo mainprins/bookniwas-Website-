@@ -17,6 +17,10 @@ export const register = async (req, res) => {
         const { fullname, email, password, role } = req.body;
         const profilePic = req.file?.filename || null;
 
+        if(profilePic === null) {
+             return res.status(400).json({ message: "Required fields cannot be empty." });
+        }
+
         if (!fullname || !email || !password || !role) {
             return res.status(400).json({ message: "Required fields cannot be empty." });
         }

@@ -18,7 +18,7 @@ export const register = async (req, res) => {
         const profilePic = req.file?.filename || null;
 
         if(profilePic === null) {
-             return res.status(400).json({ message: "Required fields cannot be empty." });
+             return res.status(400).json({ message: "Please add a profile picture." });
         }
 
         if (!fullname || !email || !password || !role) {
